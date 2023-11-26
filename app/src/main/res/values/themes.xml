@@ -3,4 +3,12 @@
     <style name="Theme.CoffeeShop" parent="android:Theme.Material.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
     </style>
+    <style name="bold" parent="TextAppearance.Design.Tab">
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TitleCenter" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
