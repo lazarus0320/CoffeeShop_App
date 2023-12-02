@@ -9,6 +9,8 @@ import com.example.coffeeshop.fragment.CoffeeTeaFragment
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
+
+    private var previousTabIndex: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -38,14 +40,22 @@ class MainActivity : AppCompatActivity() {
 
         binding.tabLayout.getTabAt(0)?.select()
         binding.tabLayout.getTabAt(0)?.view?.setBackgroundResource(android.R.color.white)
-        replaceFragment(CoffeeTeaFragment())
+        replaceFragment(CoffeeTeaFragment.newInstance("coffeeTea"), R.anim.slide_in_right, R.anim.slide_out_left)
         // TabSelectedListener를 통해 선택된 탭의 배경색 변경
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
+                val currentIndex = tab?.position ?: 0
+                val enterAnimation = if (currentIndex > previousTabIndex) R.anim.slide_in_right else R.anim.slide_in_left
+                val exitAnimation = if (currentIndex > previousTabIndex) R.anim.slide_out_left else R.anim.slide_out_right
+
                 tab?.view?.setBackgroundResource(android.R.color.white)
-                if (tab?.position == 0) {
-                    replaceFragment(CoffeeTeaFragment())
+                when (tab?.position) {
+                    0 -> replaceFragment(CoffeeTeaFragment.newInstance("coffeeTea"), enterAnimation, exitAnimation)
+                    1 -> replaceFragment(CoffeeTeaFragment.newInstance("smoothieJuice"), enterAnimation, exitAnimation)
+                    2 -> replaceFragment(CoffeeTeaFragment.newInstance("dessert"), enterAnimation, exitAnimation)
                 }
+
+                previousTabIndex = currentIndex
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -58,8 +68,16 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun replaceFragment(fragment: androidx.fragment.app.Fragment) {
+    private fun replaceFragment(fragment: androidx.fragment.app.Fragment, enterAnim: Int, exitAnim: Int) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+
+        transaction.setCustomAnimations(
+            enterAnim,
+            exitAnim,
+            R.anim.slide_in_left, // 들어올 때의 애니메이션 (역방향)
+            R.anim.slide_out_right // 나갈 때의 애니메이션 (역방향)
+        )
+
         transaction.replace(R.id.itemContainer, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
