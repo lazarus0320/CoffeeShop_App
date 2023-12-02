@@ -1,5 +1,6 @@
 package com.example.coffeeshop.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop.R
 import com.example.coffeeshop.entity.CoffeeTeaItem
+import com.example.coffeeshop.fragment.ItemDialog
 
 class CoffeeTeaAdapter(private val coffeeTeaData: List<CoffeeTeaItem>) :
     RecyclerView.Adapter<CoffeeTeaAdapter.CoffeeTeaViewHolder>() {
@@ -24,12 +26,19 @@ class CoffeeTeaAdapter(private val coffeeTeaData: List<CoffeeTeaItem>) :
         return CoffeeTeaViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CoffeeTeaViewHolder, position: Int) {
         val currentItem = coffeeTeaData[position]
 
         holder.image.setImageResource(currentItem.imageResource)
         holder.name.text = currentItem.name
-        holder.price.text = currentItem.price.toString()
+        holder.price.text = "${currentItem.price}원"
+
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val itemDialog = ItemDialog(context, currentItem)
+            itemDialog.show()
+        }
     }
 
     override fun getItemCount(): Int {
