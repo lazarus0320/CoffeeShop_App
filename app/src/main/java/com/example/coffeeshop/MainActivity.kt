@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.tabLayout.getTabAt(0)?.select()
         binding.tabLayout.getTabAt(0)?.view?.setBackgroundResource(android.R.color.white)
+        replaceFragment(CoffeeTeaFragment())
         // TabSelectedListener를 통해 선택된 탭의 배경색 변경
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
