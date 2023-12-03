@@ -8,13 +8,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="344dp"
-        android:layout_height="340dp"
+        android:layout_height="380dp"
+        android:background="@drawable/custom_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498">
+        app:layout_constraintTop_toTopOf="parent">
 
 
 
@@ -22,60 +21,162 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:orientation="vertical"
             >
 
 
-
             <LinearLayout
+                android:id="@+id/DialogItemInfo"
                 android:layout_width="350dp"
-                android:layout_height="114dp"
-                android:layout_marginTop="4dp"
+                android:layout_height="140dp"
                 android:orientation="horizontal"
+
+                android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txt_contents"
                 tools:ignore="UnknownId">
 
                 <ImageView
                     android:id="@+id/imageViewItemPopup"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:paddingBottom="20dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/image_outline"
+                    android:contentDescription="TODO"
+                    android:padding="1dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_launcher_foreground" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="130dp"
+                    android:orientation="vertical"
+                    android:paddingVertical="10dp"
+                    android:paddingStart="20dp"
+                    tools:ignore="RtlSymmetry">
 
                     <TextView
                         android:id="@+id/itemNamePopup"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="15"
                         android:autofillHints=""
-                        android:paddingBottom="30dp"
+                        android:ems="15"
+                        android:gravity="center"
+                        android:paddingBottom="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
                         tools:ignore="LabelFor" />
 
                     <TextView
                         android:id="@+id/itemPricePopup"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="20"
-                        android:paddingBottom="30dp"
-                        android:autofillHints="" />
+                        android:layout_height="match_parent"
+                        android:autofillHints=""
+                        android:ems="15"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="22sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
+            <FrameLayout
+                android:id="@+id/DialogSelectInfo"
+                app:layout_constraintTop_toBottomOf="@+id/DialogItemInfo"
                 android:layout_width="match_parent"
-                android:layout_height="280dp"
-                tools:ignore="MissingConstraints" />
+                android:layout_height="90dp"
+
+                tools:ignore="MissingConstraints"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:id="@+id/DialogSelectBtnLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                        <Button
+                            android:id="@+id/sizeButtonS"
+                            android:text="S"
+                            style="@style/AppTheme.Button.itemSizeButton"
+                            />
+                        <Button
+                            android:id="@+id/sizeButtonM"
+                            android:text="M"
+                            android:layout_marginStart="20dp"
+                            style="@style/AppTheme.Button.itemSizeButton"
+                        />
+                        <Button
+                            android:id="@+id/sizeButtonL"
+                            android:text="L"
+                            android:layout_marginStart="20dp"
+                            style="@style/AppTheme.Button.itemSizeButton"
+                        />
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/DialogSelectInfo2"
+                app:layout_constraintTop_toBottomOf="@+id/DialogSelectInfo"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+
+                tools:ignore="MissingConstraints"
+                android:orientation="vertical"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:id="@+id/DialogSelectBtnLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textQuantity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="수량"
+                        android:textSize="24sp"
+                        android:textColor="#000000"/>
+
+                    <TextView
+                        android:id="@+id/quantityValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="70dp"
+                        android:text="1"
+                        android:textStyle="bold"
+                        android:textSize="24sp"
+                        android:textColor="#000000" />
+
+                    <Button
+                        android:id="@+id/btnIncrease"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="50dp"
+                        android:background="@drawable/upcount"
+                        android:onClick="increaseQuantity"/>
+
+                    <Button
+                        android:id="@+id/btnDecrease"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/downcount"
+                        android:onClick="decreaseQuantity"/>
+
+                </LinearLayout>
+            </FrameLayout>
+
+
+
             <Button
                 android:id="@+id/btn_shutdown"
                 android:layout_width="match_parent"
@@ -83,7 +184,7 @@
                 android:onClick="shutDownClick"
                 android:text="Done"
                 tools:ignore="MissingConstraints"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/DialogSelectInfo2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
