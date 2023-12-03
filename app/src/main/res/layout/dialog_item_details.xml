@@ -8,7 +8,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="344dp"
-        android:layout_height="380dp"
+        android:layout_height="382dp"
+        android:padding="3dp"
         android:background="@drawable/custom_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +38,7 @@
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:ignore="UnknownId">
+                tools:ignore="MissingConstraints,UnknownId">
 
                 <ImageView
                     android:id="@+id/imageViewItemPopup"
@@ -176,15 +177,40 @@
             </FrameLayout>
 
 
-
-            <Button
-                android:id="@+id/btn_shutdown"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:onClick="shutDownClick"
-                android:text="Done"
-                tools:ignore="MissingConstraints"
-                app:layout_constraintTop_toBottomOf="@+id/DialogSelectInfo2" />
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/DialogSelectInfo2"
+                tools:ignore="NotSibling">
+                <Button
+                    android:id="@+id/btn_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="#FA5252"
+                    android:onClick="confirmClick"
+                    android:text="주문"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    tools:ignore="MissingConstraints"
+                     />
+                <Button
+                    android:id="@+id/btn_shutdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:background="#ADB5BD"
+                    android:onClick="shutDownClick"
+                    android:text="취소"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    tools:ignore="MissingConstraints"
+                    />
+            </LinearLayout>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -18,6 +18,7 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
     private lateinit var textViewQuantity: TextView
     private lateinit var btnIncrease: Button
     private lateinit var btnDecrease: Button
+    private lateinit var confirmClick: Button
     private lateinit var shutdownClick: Button
     private lateinit var sizeButtonS: Button
     private lateinit var sizeButtonM: Button
@@ -48,6 +49,7 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
         textViewQuantity = findViewById(R.id.quantityValue)
         btnIncrease = findViewById(R.id.btnIncrease)
         btnDecrease = findViewById(R.id.btnDecrease)
+        confirmClick = findViewById(R.id.btn_confirm)
         shutdownClick = findViewById(R.id.btn_shutdown)
 
         sizeButtonS = findViewById(R.id.sizeButtonS)
@@ -55,6 +57,7 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
         sizeButtonL = findViewById(R.id.sizeButtonL)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupListeners() {
         btnIncrease.setOnClickListener {
             increaseQuantity()
@@ -70,18 +73,21 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
             size = 0
             updateQuantityAndPrice()
             updatePriceText()
+            textViewName.text = "${item.name} S"
         }
 
         sizeButtonM.setOnClickListener {
             size = 500
             updateQuantityAndPrice()
             updatePriceText()
+            textViewName.text = "${item.name} M"
         }
 
         sizeButtonL.setOnClickListener {
             size = 1000
             updateQuantityAndPrice()
             updatePriceText()
+            textViewName.text = "${item.name} L"
         }
 
         shutdownClick.setOnClickListener {
@@ -104,9 +110,10 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
         updatePriceText()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun updateViews() {
         imageView.setImageResource(item.imageResource)
-        textViewName.text = item.name
+        textViewName.text = "${item.name} S"
         updateQuantityAndPrice()
     }
 
