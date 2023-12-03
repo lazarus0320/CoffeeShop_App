@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop.R
 import com.example.coffeeshop.entity.CoffeeTeaItem
+import com.example.coffeeshop.entity.Size
 import com.example.coffeeshop.fragment.ItemDialog
 
 class CoffeeTeaAdapter(private val coffeeTeaData: List<CoffeeTeaItem>) :

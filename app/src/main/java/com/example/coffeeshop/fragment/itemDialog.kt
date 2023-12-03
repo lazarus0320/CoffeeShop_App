@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.coffeeshop.R
 import com.example.coffeeshop.entity.CoffeeTeaItem
+import com.example.coffeeshop.entity.Size
 
 class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(context) {
     private lateinit var imageView: ImageView
@@ -18,8 +19,12 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
     private lateinit var btnIncrease: Button
     private lateinit var btnDecrease: Button
     private lateinit var shutdownClick: Button
+    private lateinit var sizeButtonS: Button
+    private lateinit var sizeButtonM: Button
+    private lateinit var sizeButtonL: Button
 
     private var quantity = 1
+    private var size = 0
 
     companion object {
         const val DEFAULT_QUANTITY = 1
@@ -44,6 +49,10 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
         btnIncrease = findViewById(R.id.btnIncrease)
         btnDecrease = findViewById(R.id.btnDecrease)
         shutdownClick = findViewById(R.id.btn_shutdown)
+
+        sizeButtonS = findViewById(R.id.sizeButtonS)
+        sizeButtonM = findViewById(R.id.sizeButtonM)
+        sizeButtonL = findViewById(R.id.sizeButtonL)
     }
 
     private fun setupListeners() {
@@ -55,6 +64,24 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
         btnDecrease.setOnClickListener {
             decreaseQuantity()
             updateQuantityAndPrice()
+        }
+
+        sizeButtonS.setOnClickListener {
+            size = 0
+            updateQuantityAndPrice()
+            updatePriceText()
+        }
+
+        sizeButtonM.setOnClickListener {
+            size = 500
+            updateQuantityAndPrice()
+            updatePriceText()
+        }
+
+        sizeButtonL.setOnClickListener {
+            size = 1000
+            updateQuantityAndPrice()
+            updatePriceText()
         }
 
         shutdownClick.setOnClickListener {
@@ -89,6 +116,6 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
 
     @SuppressLint("SetTextI18n")
     private fun updatePriceText() {
-        textViewPrice.text = "${item.price * quantity}원"
+        textViewPrice.text = "${(item.price + size) * quantity}원"
     }
 }
