@@ -1,10 +1,13 @@
 package com.example.coffeeshop
 import android.os.Bundle
 import android.view.Gravity
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.coffeeshop.databinding.ActivityMainBinding
+import com.example.coffeeshop.fragment.CartHistoryFragment
 import com.example.coffeeshop.fragment.CoffeeTeaFragment
 import com.google.android.material.tabs.TabLayout
 
@@ -66,9 +69,18 @@ class MainActivity : AppCompatActivity() {
                 // 탭이 다시 선택되었을 때의 동작
             }
         })
+
+        val btnCart: ImageView = findViewById(R.id.btnCart)
+        btnCart.setOnClickListener {
+            val fragment = CartHistoryFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.itemContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
-    private fun replaceFragment(fragment: androidx.fragment.app.Fragment, enterAnim: Int, exitAnim: Int) {
+    private fun replaceFragment(fragment: Fragment, enterAnim: Int, exitAnim: Int) {
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
         transaction.setCustomAnimations(
