@@ -15,8 +15,25 @@
         android:background="#FA5252"
         app:title="커피 주문"
         app:titleTextColor="@color/white"
-        app:titleTextAppearance="@style/TitleCenter"
-        />
+        app:titleTextAppearance="@style/TitleCenter">
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="end"
+        android:layout_weight="1"
+    />
+
+    <ImageView
+        android:id="@+id/btnCart"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="end"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/cart2"
+        android:scaleType="fitCenter"/>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"

@@ -71,23 +71,37 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
 
         sizeButtonS.setOnClickListener {
             size = 0
+            item.size = Size.S
             updateQuantityAndPrice()
             updatePriceText()
-            textViewName.text = "${item.name} S"
+            textViewName.text = item.name + item.size
         }
 
         sizeButtonM.setOnClickListener {
             size = 500
+            item.size = Size.M
             updateQuantityAndPrice()
             updatePriceText()
-            textViewName.text = "${item.name} M"
+            textViewName.text = item.name + item.size
         }
 
         sizeButtonL.setOnClickListener {
             size = 1000
+            item.size = Size.L
             updateQuantityAndPrice()
             updatePriceText()
-            textViewName.text = "${item.name} L"
+            textViewName.text = item.name + item.size
+        }
+
+        confirmClick.setOnClickListener {
+            val selectedSize = when (item.size) {
+                Size.S -> "S"
+                Size.M -> "M"
+                Size.L -> "L"
+            }
+            OrderManager.addOrder(item, quantity)
+
+            dismiss()
         }
 
         shutdownClick.setOnClickListener {
@@ -113,7 +127,7 @@ class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(con
     @SuppressLint("SetTextI18n")
     private fun updateViews() {
         imageView.setImageResource(item.imageResource)
-        textViewName.text = "${item.name} S"
+        textViewName.text = item.name + item.size
         updateQuantityAndPrice()
     }
 
