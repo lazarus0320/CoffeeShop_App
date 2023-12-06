@@ -1,3 +1,3 @@
 package com.example.coffeeshop.entity
 
-data class CartItem (val name: String, val price: Int, val quantity: Int, val size: Size)
+data class CartItem (val name: String, val price: Int, var quantity: Int, val size: Size)

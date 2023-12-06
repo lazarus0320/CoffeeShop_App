@@ -1,52 +1,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
-    <!-- 주문 리스트를 나타낼 테이블 레이아웃 추가 -->
-    <TableLayout
-        android:id="@+id/cart_table"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:stretchColumns="*"
-        android:layout_weight="1"
-        android:padding="16dp">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <!-- 테이블 헤더 -->
-        <TableRow
-            android:layout_marginBottom="20dp"
-            >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1.3"
-                android:textAlignment="center"
-                android:text="이름"
-                android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.8"
-                android:textAlignment="center"
-                android:text="사이즈"
-                android:textStyle="bold" />
+        <LinearLayout
+            android:id="@+id/cart_items_container"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <!-- Dynamically added cart items will go here -->
+        </LinearLayout>
+    </ScrollView>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="0.8"
-                android:textAlignment="center"
-                android:text="수량"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1.2"
-                android:textAlignment="center"
-                android:text="가격"
-                android:textStyle="bold" />
-        </TableRow>
-    </TableLayout>
-
-    <!-- 총 가격과 결제 버튼을 담을 수직 방향 레이아웃 -->
+        <!-- 총 가격과 결제 버튼을 담을 수직 방향 레이아웃 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -62,6 +37,7 @@
             android:layout_marginBottom="20dp"
             android:textAlignment="textEnd"
             android:textSize="22sp"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
         <!-- 결제 버튼 -->
@@ -75,4 +51,5 @@
             android:background="#FA5252"
             android:text="결제하기" />
     </LinearLayout>
+
 </LinearLayout>

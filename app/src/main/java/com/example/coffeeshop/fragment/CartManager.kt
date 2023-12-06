@@ -15,5 +15,13 @@ object CartManager {
         return cartItemList.toList()
     }
 
+    fun updateQuantity(cartItem: CartItem, newQuantity: Int) {
+        cartItemList.find { it == cartItem }?.quantity = newQuantity
+    }
+
+    fun removeCartItem(cartItem: CartItem) {
+        cartItemList.remove(cartItem)
+    }
+
 
 }
