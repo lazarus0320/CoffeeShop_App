@@ -65,8 +65,10 @@ class CartHistoryFragment: Fragment() {
         quantityTextView.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 0.8f)
         quantityTextView.gravity = Gravity.CENTER
 
+        var sizeValue = getSizeInt(cartItem.size)
+
         val priceTextView = TextView(context)
-        priceTextView.text = "${cartItem.price}원"
+        priceTextView.text = "${(cartItem.price + sizeValue) * cartItem.quantity}원"
         priceTextView.layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.2f)
         priceTextView.gravity = Gravity.END
 
@@ -86,9 +88,17 @@ class CartHistoryFragment: Fragment() {
         }
     }
 
+    private fun getSizeInt(size: Size): Int {
+        return when (size) {
+            Size.S -> 0
+            Size.M -> 500
+            Size.L -> 1000
+        }
+    }
+
     @SuppressLint("SetTextI18n")
     private fun updateTotalPrice(cartList: List<CartItem>) {
-        val totalPrice = cartList.sumOf { it.price }
+        val totalPrice = cartList.sumOf { (it.price + getSizeInt(it.size) ) * it.quantity }
         totalTextView.text = "총 가격: $totalPrice 원"
     }
 }
