@@ -8,14 +8,14 @@
         android:id="@+id/editTextUserId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Id" />
+        android:hint="id" />
 
     <EditText
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPassword"
-        android:hint="Password" />
+        android:hint="password" />
 
     <Button
         android:id="@+id/buttonLogin"
