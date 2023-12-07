@@ -1,6 +1,8 @@
 package com.example.coffeeshop.fragment
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.coffeeshop.R
+import com.example.coffeeshop.config.DBHelper
 import com.example.coffeeshop.entity.CartItem
 import com.example.coffeeshop.entity.Size
 
@@ -86,6 +90,10 @@ class CartHistoryFragment : Fragment() {
             updateTotalPrice(CartManager.getCartItemList())
         }
 
+        checkoutButton.setOnClickListener {
+            confirmPurchase()
+        }
+
 
         cartItemsContainer.addView(cartItemView)
     }
@@ -111,4 +119,46 @@ class CartHistoryFragment : Fragment() {
         val totalPrice = cartList.sumOf { (it.price + getSizeInt(it.size)) * it.quantity }
         totalTextView.text = "총 가격: $totalPrice 원"
     }
+
+    private fun confirmPurchase() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_item_order, null)
+        val customDialog = Dialog(requireContext()).apply {
+            setContentView(dialogView)
+            setCancelable(true)
+        }
+
+        val titleTextView: TextView = dialogView.findViewById(R.id.dialog_title)
+        val messageTextView: TextView = dialogView.findViewById(R.id.dialog_msg)
+        val confirmButton: Button = dialogView.findViewById(R.id.btn_confirm)
+        val cancelButton: Button = dialogView.findViewById(R.id.btn_shutdown)
+
+        titleTextView.text = "구매 확인"
+        messageTextView.text = "이 상품을 구매하시겠습니까?"
+
+        confirmButton.setOnClickListener {
+            customDialog.dismiss()
+            savePurchaseInfo()
+        }
+
+        cancelButton.setOnClickListener {
+            customDialog.dismiss()
+        }
+
+        customDialog.show()
+    }
+
+    private fun savePurchaseInfo() {
+        val sharedPreferences = requireActivity().getSharedPreferences("MySharedPrefs", Context.MODE_PRIVATE)
+        val loggedInUserName = sharedPreferences.getString("loggedInUserName", "") ?: return
+
+        val dbHelper = DBHelper(requireContext())
+        val cartList = CartManager.getCartItemList()
+
+        for (item in cartList) {
+            dbHelper.addPurchase(loggedInUserName, item)
+        }
+
+        Toast.makeText(context, "구매가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+    }
+
 }
