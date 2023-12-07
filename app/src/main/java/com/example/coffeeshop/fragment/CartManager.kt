@@ -23,5 +23,9 @@ object CartManager {
         cartItemList.remove(cartItem)
     }
 
+    fun clearCart() {
+        cartItemList.forEach { it.reset() }
+        cartItemList.clear()
+    }
 
 }

@@ -95,7 +95,6 @@ class ItemDialogActivity(context: Context, private val item: CoffeeTeaItem) : Di
         }
 
         confirmClick.setOnClickListener {
-//            item.price = (item.price + size) * quantity
             CartManager.addCartItem(item, quantity)
             dismiss()
         }

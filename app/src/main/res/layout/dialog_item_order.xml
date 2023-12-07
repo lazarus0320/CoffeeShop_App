@@ -26,17 +26,17 @@
             android:text="title"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="30sp"
+            android:textSize="22sp"
             tools:ignore="MissingConstraints" />
 
         <TextView
             app:layout_constraintTop_toBottomOf="@+id/dialog_title"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:padding="25dp"
+            android:padding="20dp"
             android:text="test"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textColor="@color/black"
             android:id="@+id/dialog_msg" />
 

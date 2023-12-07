@@ -158,7 +158,14 @@ class CartHistoryFragment : Fragment() {
             dbHelper.addPurchase(loggedInUserName, item)
         }
 
+        CartManager.clearCart()
+        updateUI()
+        updateTotalPrice(cartList)
         Toast.makeText(context, "구매가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateUI() {
+        cartItemsContainer.removeAllViews()
     }
 
 }
