@@ -1,4 +1,4 @@
-package com.example.coffeeshop.fragment
+package com.example.coffeeshop.activity
 
 import android.annotation.SuppressLint
 import android.app.Dialog
@@ -10,8 +10,9 @@ import android.widget.TextView
 import com.example.coffeeshop.R
 import com.example.coffeeshop.entity.CoffeeTeaItem
 import com.example.coffeeshop.entity.Size
+import com.example.coffeeshop.fragment.CartManager
 
-class ItemDialog(context: Context, private val item: CoffeeTeaItem) : Dialog(context) {
+class ItemDialogActivity(context: Context, private val item: CoffeeTeaItem) : Dialog(context) {
     private lateinit var imageView: ImageView
     private lateinit var textViewName: TextView
     private lateinit var textViewPrice: TextView

@@ -22,6 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SignUpActivity"
+            android:theme="@style/Theme.AppCompat"/>
+        <activity android:name=".activity.LoginActivity"
+            android:theme="@style/Theme.AppCompat"/>
+        <activity android:name=".activity.ItemTabActivity"
+            android:theme="@style/Theme.AppCompat"/>
     </application>
 
 </manifest>

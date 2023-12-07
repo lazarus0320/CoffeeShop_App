@@ -9,8 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop.R
 import com.example.coffeeshop.entity.CoffeeTeaItem
-import com.example.coffeeshop.entity.Size
-import com.example.coffeeshop.fragment.ItemDialog
+import com.example.coffeeshop.activity.ItemDialogActivity
 
 class CoffeeTeaAdapter(private val coffeeTeaData: List<CoffeeTeaItem>) :
     RecyclerView.Adapter<CoffeeTeaAdapter.CoffeeTeaViewHolder>() {
@@ -37,8 +36,8 @@ class CoffeeTeaAdapter(private val coffeeTeaData: List<CoffeeTeaItem>) :
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val itemDialog = ItemDialog(context, currentItem)
-            itemDialog.show()
+            val itemDialogActivity = ItemDialogActivity(context, currentItem)
+            itemDialogActivity.show()
         }
     }
 
