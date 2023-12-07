@@ -28,6 +28,8 @@
             android:theme="@style/Theme.AppCompat"/>
         <activity android:name=".activity.ItemTabActivity"
             android:theme="@style/Theme.AppCompat"/>
+        <activity android:name=".activity.AdminOrderActivity"
+            android:theme="@style/Theme.AppCompat"/>
     </application>
 
 </manifest>

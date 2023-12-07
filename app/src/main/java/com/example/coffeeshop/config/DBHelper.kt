@@ -6,13 +6,14 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.coffeeshop.entity.CartItem
+import com.example.coffeeshop.entity.Order
 import com.example.coffeeshop.entity.Size
 import java.security.MessageDigest
 
 
 class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val DATABASE_NAME = "CoffeeShopDBTest"
         private const val TABLE_USERS = "users"
         private const val KEY_ID = "id"
@@ -20,12 +21,12 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         private const val KEY_PASSWORD = "password"
         private const val KEY_USERNAME = "userName"
 
-        private const val KEY_PURCHASE_USERNAME = "userName"
-        private const val KEY_PURCHASE_ITEMNAME = "itemName"
-        private const val KEY_PURCHASE_SIZE = "size"
-        private const val KEY_PURCHASE_QUANTITY = "quantity"
-        private const val KEY_PURCHASE_PRICE = "price"
-        private const val TABLE_PURCHASES = "purchases"
+        private const val KEY_ORDER_USERNAME = "userName"
+        private const val KEY_ORDER_ITEMNAME = "itemName"
+        private const val KEY_ORDER_SIZE = "size"
+        private const val KEY_ORDER_QUANTITY = "quantity"
+        private const val KEY_ORDER_PRICE = "price"
+        private const val TABLE_ORDERS = "orders"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
@@ -35,10 +36,20 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
                 "$KEY_USERID TEXT," +
                 "$KEY_PASSWORD TEXT)")
         db.execSQL(createUserTable)
+
+        val createOrderTable = ("CREATE TABLE $TABLE_ORDERS (" +
+                "$KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "$KEY_ORDER_USERNAME TEXT," +
+                "$KEY_ORDER_ITEMNAME TEXT," +
+                "$KEY_ORDER_SIZE TEXT," +
+                "$KEY_ORDER_QUANTITY INTEGER," +
+                "$KEY_ORDER_PRICE INTEGER)")
+        db.execSQL(createOrderTable)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         db.execSQL("DROP TABLE IF EXISTS $TABLE_USERS")
+        db.execSQL("DROP TABLE IF EXISTS $TABLE_ORDERS")
         onCreate(db)
     }
 
@@ -99,18 +110,18 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
         return username
     }
 
-    fun addPurchase(userName: String, cartItem: CartItem) {
+    fun addOrder(userName: String, cartItem: CartItem) {
         val db = this.writableDatabase
 
         val values = ContentValues().apply {
-            put(KEY_PURCHASE_USERNAME, userName)
-            put(KEY_PURCHASE_ITEMNAME, cartItem.name)
-            put(KEY_PURCHASE_SIZE, cartItem.size.name)
-            put(KEY_PURCHASE_QUANTITY, cartItem.quantity)
-            put(KEY_PURCHASE_PRICE, (cartItem.price + getSizeInt(cartItem.size)) * cartItem.quantity)
+            put(KEY_ORDER_ITEMNAME, cartItem.name)
+            put(KEY_ORDER_USERNAME, userName)
+            put(KEY_ORDER_SIZE, cartItem.size.name)
+            put(KEY_ORDER_QUANTITY, cartItem.quantity)
+            put(KEY_ORDER_PRICE, (cartItem.price + getSizeInt(cartItem.size)) * cartItem.quantity)
         }
 
-        db.insert(TABLE_PURCHASES, null, values)
+        db.insert(TABLE_ORDERS, null, values)
         db.close()
     }
 
@@ -120,5 +131,27 @@ class DBHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null
             Size.M -> 500
             Size.L -> 1000
         }
+    }
+
+    @SuppressLint("Range")
+    fun getAllOrders(): List<Order> {
+        val orderList = mutableListOf<Order>()
+        val db = this.readableDatabase
+        val cursor = db.query(TABLE_ORDERS, null, null, null, null, null, null)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val order = Order(
+                    userName = cursor.getString(cursor.getColumnIndex(KEY_ORDER_USERNAME)),
+                    itemName = cursor.getString(cursor.getColumnIndex(KEY_ORDER_ITEMNAME)),
+                    size = cursor.getString(cursor.getColumnIndex(KEY_ORDER_SIZE)),
+                    quantity = cursor.getInt(cursor.getColumnIndex(KEY_ORDER_QUANTITY)),
+                    price = cursor.getInt(cursor.getColumnIndex(KEY_ORDER_PRICE))
+                )
+                orderList.add(order)
+            } while (cursor.moveToNext())
+        }
+        cursor.close()
+        return orderList
     }
 }

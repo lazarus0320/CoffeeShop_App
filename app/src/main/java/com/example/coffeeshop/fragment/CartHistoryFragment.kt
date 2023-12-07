@@ -16,6 +16,7 @@ import com.example.coffeeshop.R
 import com.example.coffeeshop.config.DBHelper
 import com.example.coffeeshop.entity.CartItem
 import com.example.coffeeshop.entity.Size
+import com.example.coffeeshop.manager.CartManager
 
 class CartHistoryFragment : Fragment() {
 
@@ -155,7 +156,7 @@ class CartHistoryFragment : Fragment() {
         val cartList = CartManager.getCartItemList()
 
         for (item in cartList) {
-            dbHelper.addPurchase(loggedInUserName, item)
+            dbHelper.addOrder(loggedInUserName, item)
         }
 
         CartManager.clearCart()

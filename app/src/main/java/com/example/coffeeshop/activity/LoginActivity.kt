@@ -1,5 +1,6 @@
 package com.example.coffeeshop.activity
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -35,12 +36,23 @@ class LoginActivity : AppCompatActivity() {
             val isAuthenticated = dbHelper.authenticateUser(userId, password)
 
             if (isAuthenticated) {
-                loginUser(userId, password)
+                val userName = dbHelper.getUsernameByUserId(userId)
+                if (userName != null) {
+                    loginUser(userName)
 
-                 val intent = Intent(this, ItemTabActivity::class.java)
-                 startActivity(intent)
-                 finish()
+                    val intent = Intent(this, ItemTabActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
             }
+
+            else if (userId == "admin" && password == "admin") {
+                val intent = Intent(this, AdminOrderActivity::class.java)
+                Toast.makeText(this, "로그인 성공: 관리자님 반갑습니다!!", Toast.LENGTH_SHORT).show()
+                startActivity(intent)
+                finish()
+            }
+
             else {
                 Toast.makeText(this, "잘못된 사용자 이름 또는 비밀번호입니다.", Toast.LENGTH_SHORT).show()
             }
@@ -54,18 +66,10 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun loginUser(userId: String, password: String) {
-        val dbHelper = DBHelper(this)
+    private fun loginUser(userName: String) {
+        saveLoggedInUserName(userName)
+        Toast.makeText(this, "로그인 성공: ${userName}님 반갑습니다!!", Toast.LENGTH_SHORT).show()
 
-        if (dbHelper.authenticateUser(userId, password)) {
-            val userName = dbHelper.getUsernameByUserId(userId)
-            val user = userName?.let { User(it, userId) }
-            saveLoggedInUserName(userName)
-            Toast.makeText(this, "로그인 성공: ${user?.userName}님 반갑습니다!!", Toast.LENGTH_SHORT).show()
-            // 다른 액티비티 창으로 이동되더라도 member 객체를 유지할 수 있는가? static?
-        } else {
-            Toast.makeText(this, "잘못된 아이디 또는 비밀번호", Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun saveLoggedInUserName(userName: String?) {

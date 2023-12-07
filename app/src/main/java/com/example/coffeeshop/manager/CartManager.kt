@@ -1,4 +1,4 @@
-package com.example.coffeeshop.fragment
+package com.example.coffeeshop.manager
 
 import com.example.coffeeshop.entity.CoffeeTeaItem
 import com.example.coffeeshop.entity.CartItem

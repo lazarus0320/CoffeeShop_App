@@ -1,0 +1,22 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="30dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/tableOrders"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="*">
+
+        <!-- 테이블 헤더 -->
+        <TableRow>
+            <TextView android:text="사용자 이름" />
+            <TextView android:text="상품명" />
+            <TextView android:text="사이즈" />
+            <TextView android:text="수량" />
+            <TextView android:text="가격" />
+        </TableRow>
+        <!-- 여기에 주문 데이터 행이 추가됩니다 -->
+    </TableLayout>
+</ScrollView>

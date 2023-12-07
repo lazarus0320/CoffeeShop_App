@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.example.coffeeshop.R
 import com.example.coffeeshop.entity.CoffeeTeaItem
 import com.example.coffeeshop.entity.Size
-import com.example.coffeeshop.fragment.CartManager
+import com.example.coffeeshop.manager.CartManager
 
 class ItemDialogActivity(context: Context, private val item: CoffeeTeaItem) : Dialog(context) {
     private lateinit var imageView: ImageView
@@ -134,4 +134,5 @@ class ItemDialogActivity(context: Context, private val item: CoffeeTeaItem) : Di
     private fun updatePriceText() {
         textViewPrice.text = "${(item.price + size) * quantity}원"
     }
+
 }
