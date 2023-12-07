@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.coffeeshop.MainActivity
 import com.example.coffeeshop.R
 import com.example.coffeeshop.config.DBHelper
 
@@ -34,9 +35,15 @@ class SignUpActivity : AppCompatActivity() {
             // Proceed with further registration logic
             registerUser(userId, password, userName)
         }
-
-
     }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun registerUser(userId: String, password: String, userName: String) {
         try {
             // 회원가입 로직
