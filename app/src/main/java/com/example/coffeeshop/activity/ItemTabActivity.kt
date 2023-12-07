@@ -1,11 +1,14 @@
 package com.example.coffeeshop.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.coffeeshop.MainActivity
 import com.example.coffeeshop.R
 import com.example.coffeeshop.fragment.CartHistoryFragment
 import com.example.coffeeshop.fragment.CoffeeTeaFragment
@@ -22,6 +25,11 @@ class ItemTabActivity : AppCompatActivity() {
         val customToolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.custom_toolbar)
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         val btnCart = findViewById<ImageView>(R.id.btnCart)
+
+        val btnLogout = findViewById<ImageView>(R.id.btnLogout)
+        btnLogout.setOnClickListener {
+            logoutUser()
+        }
 
         val titleTextView = TextView(this)
         titleTextView.text = "커피 주문"
@@ -107,5 +115,18 @@ class ItemTabActivity : AppCompatActivity() {
         transaction.replace(R.id.itemContainer, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
+    }
+
+    private fun logoutUser() {
+        // 로그인 상태 정보 삭제
+        val sharedPreferences = getSharedPreferences("MySharedPrefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove("loggedInUserName")
+        editor.apply()
+
+        Toast.makeText(this, "로그아웃 되었습니다.", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

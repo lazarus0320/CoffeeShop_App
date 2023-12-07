@@ -29,8 +29,17 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="end"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="10dp"
             android:src="@drawable/cart2"
+            android:scaleType="fitCenter"/>
+
+        <ImageView
+            android:id="@+id/btnLogout"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/logout"
             android:scaleType="fitCenter"/>
 
     </androidx.appcompat.widget.Toolbar>
